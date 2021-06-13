@@ -36,21 +36,23 @@ int main(){
         }
     }
 
-    for(int i = 0; i < 3; i++){
-        for(int j = 0; j < 3; j++){
-            if(j < 2){
-                C[i][cont] += A[i][j] * B[j][i];
-            }else if(j == 2 && cont < 2){
-                C[i][cont] += A[i][j] * B[j][i]; 
-                cont++;
-                j = 1; 
-            }else if(j == 2 && cont == 2){
-                C[i][cont] += A[i][j] * B[j][i]; 
-                cont++;
-                j = 2; 
-            }
+    int k = 0, col = 0, ctrl = 0, aux = 0;
+    while(k < 3){
+        int l = 0;
+        while(l < 3){
+            C[k][col] += A[k][l]*B[l][cont];
+            cout << "\n" << A[k][l] << " * " << B[l][cont] << " = " << C[k][col] << " ---> cont = " << cont << " col = " << col << " k = " << k << " l = " << l << "\n";
+            l++;
         }
-        cont = 0;
+        cont++;
+        col++;
+        if(cont > 2){
+            k++;
+            cont = 0;
+        }
+        if(col > 2){
+            col = 0;
+        }
     }
 
     cout << "\nMATRIZ PRODUTO:\n";
