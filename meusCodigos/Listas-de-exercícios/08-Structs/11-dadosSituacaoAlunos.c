@@ -15,7 +15,7 @@ void main(){
 
     //Definindo variáveis.
     struct Aluno *alunos, *aprovado, *reprovado;
-    int repro = 0, apro = 0;
+    int repro = 0, apro = 0, contApro = 0, contRepro = 0;
 
     //Alocando memória para alunos.
     alunos = (struct Aluno*) malloc(10 * sizeof(struct Aluno));    
@@ -45,12 +45,14 @@ void main(){
     //Analisando os aprovados ou reprovados.
     for(int i = 0; i < 10; i++){
         if(alunos[i].mediaFinal >= 5.0){
-            aprovado[i] = alunos[i]; 
+            aprovado[contApro] = alunos[i]; 
+            contApro++;
         }else{
-            reprovado[i] = alunos[i];            
+            reprovado[contRepro] = alunos[i]; 
+            contRepro++;           
         }
     }
-
+    
     //Mostrando a lista de aprovados e reprovados.
     printf("\n---------------\nLISTA APROVADOS\n---------------");
     for(int i = 0; i < apro; i++){
