@@ -48,7 +48,7 @@ int main(){
     imprimeSequencial(ponteiroSequencial, 2);
     
     //Menu.
-    while(funcaoDesejada < 10 && funcaoDesejada > 0){
+    while(funcaoDesejada < 9 && funcaoDesejada > 0){
         //Mostrando o menu.
         cout << "Operacoes \n";
         cout << "1 - Insercao de um node no inicio da lista \n";

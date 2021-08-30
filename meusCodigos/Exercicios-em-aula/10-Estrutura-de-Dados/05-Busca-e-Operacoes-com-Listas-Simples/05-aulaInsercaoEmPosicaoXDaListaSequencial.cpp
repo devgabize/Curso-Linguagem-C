@@ -61,6 +61,60 @@ void adcComecoSequencial(pessoa *&ponteiroSequencial, int *tamanhoDaLista, strin
 
 }
 
+void adcFimSequencial(pessoa *&ponteiroSequencial, int *tamanhoDaLista, string nome, int rg){
+
+    //Cria uma lista com u tamanho maior.
+    pessoa *novaListaSequencial = new pessoa[*tamanhoDaLista + 1];
+
+    //Passa os elementos do vetor antigo para o novo.
+    int cont;
+
+    for(cont = 0; cont < *tamanhoDaLista; cont++){
+        novaListaSequencial[cont].nome = ponteiroSequencial[cont].nome;
+        novaListaSequencial[cont].rg = ponteiroSequencial[cont].rg;
+    } 
+
+    //Posiciona o último elemento.
+    novaListaSequencial[*tamanhoDaLista].nome = nome;
+    novaListaSequencial[*tamanhoDaLista].rg = rg;
+
+    //Atualiza o ponteiro para a lista nova.
+    ponteiroSequencial = novaListaSequencial;
+
+    //Aumenta o tamanho da lista.
+    *tamanhoDaLista = *tamanhoDaLista + 1;
+
+}
+
+void adcPosicaoSequencial(pessoa *&ponteiroSequencial, int *tamanhoDaLista, string nome, int rg, int posicao){
+    //Cria uma lista com u tamanho maior.
+    pessoa *novaListaSequencial = new pessoa[*tamanhoDaLista + 1];
+
+    //Passa os elementos do vetor antigo para o novo.
+    int cont;
+
+    for(cont = 0; cont < posicao; cont++){
+        novaListaSequencial[cont].nome = ponteiroSequencial[cont].nome;
+        novaListaSequencial[cont].rg = ponteiroSequencial[cont].rg;
+    }
+
+    //Adiciona o novo registro na posicao correta.
+    novaListaSequencial[posicao].nome = nome;
+    novaListaSequencial[posicao].rg = rg;
+
+    //Coloca o resto dos valores antigos.
+    for(cont = posicao + 1; cont < *tamanhoDaLista + 1; cont++){
+        novaListaSequencial[cont].nome = ponteiroSequencial[cont - 1].nome;
+        novaListaSequencial[cont].rg = ponteiroSequencial[cont - 1].rg;
+    }
+
+    //Atualiza o ponteiro para a lista nova.
+    ponteiroSequencial = novaListaSequencial;
+
+    //Aumenta o tamanho da lista.
+    *tamanhoDaLista = *tamanhoDaLista + 1;
+}
+
 int main(){
     //Variáveis.
     int funcaoDesejada = 1;
@@ -110,7 +164,7 @@ int main(){
 
         //Variáveis usadas nas operações.
         string nome;
-        int rg;
+        int rg, posicao;
 
         //Chama a função desejadda.
         switch(funcaoDesejada){
@@ -127,8 +181,44 @@ int main(){
                 break;
             
             case 2:
-                cout << "Funcao escolhida: 2\n";
+                cout << "Funcao escolhida: 2 - Insercao de um node no fim da lista\n";
+
+                cout << "Digite um nome: ";
+                cin >> nome;
+                cout << "Digite um RG: ";
+                cin >> rg;
+
+                //Se a lista for vazia, usamos a função de criar no inicio.
+                if(tamanhoDaLista == 0){
+                    adcComecoSequencial(ponteiroSequencial, &tamanhoDaLista, nome, rg);
+                }else{
+                    adcFimSequencial(ponteiroSequencial, &tamanhoDaLista, nome, rg);
+                }
                 break;
+            
+            case 3:
+                cout << "Funcao escolhida: 3 - Insercao de um node na posicao N\n"; 
+
+                cout << "Digite uma posicao: ";
+                cin >> posicao;
+
+                cout << "Digite um nome: ";
+                cin >> nome;
+                cout << "Digite um RG: ";
+                cin >> rg; 
+
+                if(posicao == 0){
+                    //Se estiver adicionando no começo.
+                    adcComecoSequencial(ponteiroSequencial, &tamanhoDaLista, nome, rg);
+                }else if(posicao == tamanhoDaLista){
+                    //Quando quer adicionar ao fim.
+                    adcFimSequencial(ponteiroSequencial, &tamanhoDaLista, nome, rg);
+                }else{
+                    //Adiciona numa posição específica.
+                    adcPosicaoSequencial(ponteiroSequencial, &tamanhoDaLista, nome, rg, posicao); 
+                }
+
+                break; 
         }
     }
 
