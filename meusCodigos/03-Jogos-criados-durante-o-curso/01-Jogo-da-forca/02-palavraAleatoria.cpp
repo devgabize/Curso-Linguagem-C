@@ -2,11 +2,32 @@
 #include<stdlib.h>
 #include<string>
 #include<iostream>
+#include<time.h>
 
 using namespace std;
 
 void limpaTela(){
     system("clear");
+}
+
+string retornaPalavraAleatoria(){
+
+    //Vetor com palavras disponíveis.
+    string palavras[3] = {"Abacaxi", "Manga", "Morango"};
+
+    //Indice gerado no intervalo {0, 1, 2}.
+    int indiceAleatorio = rand() % 3;
+
+    return palavras[indiceAleatorio];
+}
+
+void jogarSozinho(){
+
+    //Palavra a ser advinhada.
+    string palavra = retornaPalavraAleatoria();
+
+    cout << "A palavra secreta é: " << palavra << "\n\n";
+
 }
 
 void menuInicial(){
@@ -33,6 +54,7 @@ void menuInicial(){
             case 1:
                 //Inicia o jogo.
                 cout << "\nJogo iniciado!\n\n";
+                jogarSozinho();
                 break;
             case 2:
                 //Exibe informações do jogo.
@@ -47,6 +69,9 @@ void menuInicial(){
 }
 
 int main(){
+
+    //Para gerar números aleatórios.
+    srand((unsigned)time(NULL));
 
     menuInicial();
 
